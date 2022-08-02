@@ -25,7 +25,7 @@ class Cognito_Login_Settings {
   public function plugin_settings_page_content() { ?>
     <div class="wrap">
       <h2>Cognito Login Settings</h2>
-      <p>Documentation: <a href="https://github.com/Trifoia/wordpress-cognito-login/blob/master/README.txt">https://github.com/Trifoia/wordpress-cognito-login/blob/master/README.txt</a></p>
+      <p>Documentation: <a href="https://github.com/DMA-digital-for-business/wordpress-cognito-login/blob/master/README.txt">https://github.com/Trifoia/wordpress-cognito-login/blob/master/README.txt</a></p>
       <form method="post" action="options.php">
         <?php
           settings_fields( 'cognito_login_fields' );
@@ -174,6 +174,20 @@ class Cognito_Login_Settings {
         'placeholder' => '',
         'helper' => '',
         'supplemental' => 'Should a new user be created if they don\'t yet exist?',
+        'default' => 'true'
+      ),
+      array(
+        'uid' => 'add_user_to_new_blog',
+        'label' => 'Add user to new blog',
+        'section' => 'new_user_settings',
+        'type' => 'select',
+        'options' => array(
+          'true' => 'Yes',
+          'false' => 'No'
+        ),
+        'placeholder' => '',
+        'helper' => '',
+        'supplemental' => 'Should a user be linked to the new blog if it is not there?',
         'default' => 'true'
       ),
       array(

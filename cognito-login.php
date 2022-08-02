@@ -1,11 +1,11 @@
 <?php
 /*
-  Plugin Name: Cognito Login
-  Plugin URI: https://github.com/Trifoia/wordpress-cognito-login
+  Plugin Name: Cognito Login for Multisite
+  Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
   Version: 1.3.0
-  Author: Trifoia
-  Author URI: https://trifoia.com
+  Author: Matteo Collina
+  Author URI: https://github.com/matteocollina
 */
 
 define( 'PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -82,6 +82,11 @@ class Cognito_Login{
       // Create a new user and abort on failure
       $user = Cognito_Login_User::create_user( $parsed_token );
       if ( $user === FALSE ) return;
+    }
+
+    // Add to new blog id if user doesn't exist
+    if ( $user !== FALSE && get_option( 'add_user_to_new_blog' ) === 'true') {
+      Cognito_Login_User::add_user_to_new_blog( $user );
     }
 
     // Log the user in! Exit if the login fails

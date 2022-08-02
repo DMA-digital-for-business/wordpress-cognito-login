@@ -38,4 +38,13 @@ class Cognito_Login_User {
 
     return get_user_by( 'id', $user_id);
   }
+
+  public static function add_user_to_new_blog( $user ){
+    $userid = $user->ID;
+    $blogid = $user->get_site_id();
+    $role = "subscriber";
+    if(!is_user_member_of_blog($userid, $blogid)){
+      add_user_to_blog( $blogid, $userid, $role );
+    }
+  }
 }
