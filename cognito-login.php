@@ -50,16 +50,18 @@ class Cognito_Login{
     remove_action( 'parse_query', array('Cognito_Login', 'parse_query_handler') );
 
     // Try to get a code from the url query and abort if we don't find one, or the user is already logged in
-    $code = Cognito_Login_Auth::get_code();
-    if ( $code === FALSE ) return;
-    if ( is_user_logged_in() ) return;
+    // $code = Cognito_Login_Auth::get_code();
+    // if ( $code === FALSE ) return;
+    // if ( is_user_logged_in() ) return;
 
     // Attempt to exchange the code for a token, abort if we weren't able to
-    $token = Cognito_Login_Auth::get_token( $code );
+    $token = Cognito_Login_Auth::get_id_token();
+    // $token = Cognito_Login_Auth::get_token( $code );
     if ( $token === FALSE) return;
+    if ( is_user_logged_in() ) return;
 
     // Parse the token
-    $parsed_token = Cognito_Login_Auth::parse_jwt( $token['id_token'] );
+    $parsed_token = Cognito_Login_Auth::parse_jwt( $token );
 
     // Determine user existence
     if ( !in_array( get_option( 'username_attribute' ), $parsed_token ) ) return;

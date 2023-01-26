@@ -12,6 +12,15 @@ class Cognito_Login_Auth{
   }
 
   /**
+   * Gets the "code" query variable, or FALSE if it doesn't exist
+   */
+  public static function get_id_token() {
+    if ( isset( $_GET['id_token'] ) ) return $_GET['id_token'];
+    
+    return false;
+  }
+
+  /**
    * Uses a grant code to retrieve a token from the cognito user pool. Will return FALSE if
    * a token could not be retrieved
    * 
