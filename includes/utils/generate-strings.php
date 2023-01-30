@@ -11,9 +11,9 @@ class Cognito_Login_Generate_Strings {
     $app_client_id = get_option('app_client_id');
     $oauth_scopes = get_option('oauth_scopes');
     $redirect_url = get_option('redirect_url');
+    $force_auth = get_option('force_auth');
 
-    return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url;
-    // return $app_auth_url . '/login?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url;
+    return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth;
   }
 
   /**

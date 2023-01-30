@@ -160,6 +160,20 @@ class Cognito_Login_Settings {
         'supplemental' => 'Should the default WP login system be disabled?',
         'default' => 'true'
       ),
+      array(
+        'uid' => 'force_auth',
+        'label' => 'Force User Login',
+        'section' => 'new_user_settings',
+        'type' => 'select',
+        'options' => array(
+          'true' => 'Yes',
+          'false' => 'No'
+        ),
+        'placeholder' => '',
+        'helper' => '',
+        'supplemental' => 'Force user to login',
+        'default' => 'false'
+      ),
 
       // New user settings
       array(
