@@ -163,7 +163,7 @@ class Cognito_Login_Settings {
       array(
         'uid' => 'force_auth',
         'label' => 'Force User Login',
-        'section' => 'new_user_settings',
+        'section' => 'plugin_settings',
         'type' => 'select',
         'options' => array(
           'true' => 'Yes',
