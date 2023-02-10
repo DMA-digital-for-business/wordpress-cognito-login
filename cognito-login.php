@@ -13,6 +13,7 @@ include_once( PLUGIN_PATH . 'settings.php' );
 
 // --- Include Utilities ---
 include_once( PLUGIN_PATH . 'includes/utils/generate-strings.php' );
+include_once( PLUGIN_PATH . 'includes/utils/options.php' );
 
 // --- Include Units ---
 include_once( PLUGIN_PATH . 'includes/units/auth.php' );
@@ -28,6 +29,8 @@ class Cognito_Login{
    * logged in
    */
   public static function shortcode_default( $atts ) {
+    wp_enqueue_style( 'cognito-login-wp-login', plugin_dir_url(__FILE__) . 'public/css/cognito-login-wp-login.css' );
+
     $atts = shortcode_atts( array(
       'text' => NULL,
       'class' => NULL
@@ -64,8 +67,8 @@ class Cognito_Login{
     $parsed_token = Cognito_Login_Auth::parse_jwt( $token );
 
     // Determine user existence
-    if ( !in_array( get_option( 'username_attribute' ), $parsed_token ) ) return;
-    $username = $parsed_token[get_option('username_attribute')];
+    if ( !in_array( Cognito_Login_Options::get_plugin_option( 'COGNITO_USERNAME_ATTRIBUTE' ), $parsed_token ) ) return;
+    $username = $parsed_token[Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE')];
 
     $user = get_user_by( 'login', $username );
 
@@ -79,7 +82,7 @@ class Cognito_Login{
 
     if ( $user === FALSE ) {
       // Create a new user only if the setting is turned on
-      if ( get_option( 'create_new_user' ) !== 'true' ) return;
+      if ( Cognito_Login_Options::get_plugin_option( 'COGNITO_NEW_USER' ) !== 'true' ) return;
 
       // Create a new user and abort on failure
       $user = Cognito_Login_User::create_user( $parsed_token );
@@ -87,7 +90,7 @@ class Cognito_Login{
     }
 
     // Add to new blog id if user doesn't exist
-    if ( $user !== FALSE && get_option( 'add_user_to_new_blog' ) === 'true') {
+    if ( $user !== FALSE && Cognito_Login_Options::get_plugin_option( 'COGNITO_ADD_USER_TO_NEW_BLOG' ) === 'true') {
       Cognito_Login_User::add_user_to_new_blog( $user );
     }
 
@@ -95,7 +98,7 @@ class Cognito_Login{
     if ( Cognito_Login_Programmatic_Login::login( $username ) === FALSE ) return;
 
     // Redirect the user to the "homepage", if it is set (this will hide all `print` statements)
-    $homepage = get_option('homepage');
+    $homepage = Cognito_Login_Options::get_plugin_option('COGNITO_HOMEPAGE');
     if ( !empty( $homepage ) ) {
       Cognito_Login_Auth::redirect_to( $homepage );
     }
@@ -109,7 +112,7 @@ class Cognito_Login{
    * This method should be added to the `login_head` action
    */
   public static function disable_wp_login() {
-    if ( get_option( 'disable_wp_login' ) !== 'true' ) return;
+    if ( Cognito_Login_Options::get_plugin_option( 'COGNITO_DISABLE_WP_LOGIN' ) !== 'true' ) return;
 
     wp_enqueue_style( 'cognito-login-wp-login', plugin_dir_url(__FILE__) . 'public/css/cognito-login-wp-login.css' );
 
@@ -143,4 +146,4 @@ add_shortcode( 'cognito_login', array('Cognito_Login', 'shortcode_default') );
 
 // --- Add Actions ---
 add_action( 'parse_query', array('Cognito_Login', 'parse_query_handler') );
-add_action( 'login_head', array('Cognito_Login', 'disable_wp_login') );
+add_action( 'login_head', array('Cognito_Login', 'COGNITO_DISABLE_WP_LOGIN') );

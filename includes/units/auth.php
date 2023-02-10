@@ -1,5 +1,6 @@
 <?php
 include_once( PLUGIN_PATH . 'includes/utils/generate-strings.php' );
+include_once( PLUGIN_PATH . 'includes/utils/options.php' );
 
 class Cognito_Login_Auth{
   /**
@@ -29,8 +30,8 @@ class Cognito_Login_Auth{
    * @return array|boolean Token object, or FALSE on token retrieval failure
    */
   public static function get_token( $code ) {
-    $app_client_id = get_option('app_client_id');
-    $redirect_url = get_option('redirect_url');
+    $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
+    $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
 
     $url = Cognito_Login_Generate_Strings::token_url();
     $opts = array(

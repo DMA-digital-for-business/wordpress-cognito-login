@@ -1,21 +1,23 @@
-/* Center the text of the login form */
-body.login div#login form#loginform {
-  text-align: center;
+.cognito-login-link-tecnichenuove{
+  box-shadow: 5px 5px 20px rgb(35 31 32 / 10%);
+  border-radius: 10px;
+  border: 1px solid #EEECED;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 64px;
+  gap: 10px;
+  color: #463E40;
+  display: inline-flex;
+  transition: .3s all;
+  text-decoration: none;
 }
-
-/* Hide all elements inside the login form, as well as the nav, to reduce popping */
-body.login div#login form#loginform > * {
-  display: none;
+.cognito-login-link-tecnichenuove img{
+width: 140px;
 }
-body.login p#nav {
-  display: none;
-}
-
-/* 
-  Increase the size of the login link and explicitly set the display so that the above
-  css hiding the internals of the login form is overridden
-*/
-body.login div#login form#loginform a.cognito-login-link {
-  display: inline;
-  font-size: 2em;
+.cognito-login-link-tecnichenuove:hover{
+  text-decoration: none !important;
+    box-shadow: 5px 5px 20px rgb(35 31 32 / 25%);
 }

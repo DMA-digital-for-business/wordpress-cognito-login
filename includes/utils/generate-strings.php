@@ -1,4 +1,6 @@
 <?php
+include_once( PLUGIN_PATH . 'includes/utils/options.php' );
+
 /**
  * Class contains functions used to generate strings
  */
@@ -7,11 +9,11 @@ class Cognito_Login_Generate_Strings {
    * URL to use in the login link href
    */
   public static function login_url() {
-    $app_auth_url = get_option('app_auth_url');
-    $app_client_id = get_option('app_client_id');
-    $oauth_scopes = get_option('oauth_scopes');
-    $redirect_url = get_option('redirect_url');
-    $force_auth = get_option('force_auth') === 'true' ? "true" : "false";
+    $app_auth_url = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
+    $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
+    $oauth_scopes = Cognito_Login_Options::get_plugin_option('COGNITO_OAUTH_SCOPES');
+    $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
+    $force_auth = Cognito_Login_Options::get_plugin_option('COGNITO_FORCE_AUTH') === 'true' ? "true" : "false";
 
     return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth;
   }
@@ -20,7 +22,7 @@ class Cognito_Login_Generate_Strings {
    * URL to use when getting tokens
    */
   public static function token_url() {
-    $app_auth_url = get_option('app_auth_url');
+    $app_auth_url = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
 
     return $app_auth_url . '/oauth2/token';
   }
@@ -29,8 +31,8 @@ class Cognito_Login_Generate_Strings {
    * Authorization header used when communicating with cognito
    */
   public static function authorization_header() {
-    $app_client_id = get_option('app_client_id');
-    $app_client_secret = get_option('app_client_secret');
+    $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
+    $app_client_secret = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_SECRET');
 
     return 'Basic ' . base64_encode( $app_client_id . ':' . $app_client_secret );
   }
@@ -42,8 +44,8 @@ class Cognito_Login_Generate_Strings {
    */
   public static function a_tag( $atts ) {
     $url = Cognito_Login_Generate_Strings::login_url();
-    $text = $atts['text'] ?: get_option( 'login_link_text' ) ?: 'Login';
-    $class = $atts['class'] ?: get_option( 'login_link_class' ) ?: 'cognito-login-link';
+    $text = $atts['text'] ?: Cognito_Login_Options::get_plugin_option( 'COGNITO_LOGIN_LINK_TEXT' ) ?: 'Login';
+    $class = $atts['class'] ?: Cognito_Login_Options::get_plugin_option( 'COGNITO_LOGIN_LINK_CLASS' ) ?: 'cognito-login-link';
 
     return '<a class="' . $class . '" href="' . $url . '">' . $text . '</a>';
   }
@@ -77,13 +79,13 @@ class Cognito_Login_Generate_Strings {
   }
 
   public static function password_char() {
-    $password_chars = get_option( 'password_chars' );
+    $password_chars = Cognito_Login_Options::get_plugin_option( 'COGNITO_PASSWORD_CHARS' );
     try {
       return $password_chars[random_int(0, strlen( $password_chars ) - 1)];
     } catch( Exception $e ) {
       // An exception means a secure random byte generator is unavailable. Generate an insecure
       // character or return FALSE
-      if ( get_option( 'allow_insecure_pass') === 'true' ) {
+      if ( Cognito_Login_Options::get_plugin_option( 'COGNITO_ALLOW_INSECURE_PASSWORD') === 'true' ) {
         return $password_chars[mt_rand(0, strlen( $password_chars ) - 1)];
       }
 

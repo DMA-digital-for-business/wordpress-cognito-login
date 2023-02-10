@@ -3,6 +3,8 @@
  * This class is based off these wonderful instructions by Matthew Ray:
  * https://www.smashingmagazine.com/2016/04/three-approaches-to-adding-configurable-fields-to-your-plugin/#top
  */
+include_once( PLUGIN_PATH . 'includes/utils/options.php' );
+
 class Cognito_Login_Settings {
   public function __construct() {
     // Hook into the admin menu
@@ -25,7 +27,7 @@ class Cognito_Login_Settings {
   public function plugin_settings_page_content() { ?>
     <div class="wrap">
       <h2>Cognito Login Settings</h2>
-      <p>Documentation: <a href="https://github.com/DMA-digital-for-business/wordpress-cognito-login/blob/master/README.txt">https://github.com/Trifoia/wordpress-cognito-login/blob/master/README.txt</a></p>
+      <p>Documentation: <a href="https://github.com/DMA-digital-for-business/wordpress-cognito-login">https://github.com/DMA-digital-for-business/wordpress-cognito-login</a></p>
       <form method="post" action="options.php">
         <?php
           settings_fields( 'cognito_login_fields' );
@@ -46,7 +48,7 @@ class Cognito_Login_Settings {
     $fields = array(
       // Cognito Auth Settings
       array(
-        'uid' => 'user_pool_id',
+        'uid' => 'COGNITO_USER_POOL_ID',
         'label' => 'User Pool ID',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -57,7 +59,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'app_client_id',
+        'uid' => 'COGNITO_APP_CLIENT_ID',
         'label' => 'App Client ID',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -68,7 +70,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'app_client_secret',
+        'uid' => 'COGNITO_APP_CLIENT_SECRET',
         'label' => 'App Client Secret',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -79,7 +81,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'redirect_url',
+        'uid' => 'COGNITO_REDIRECT_URL',
         'label' => 'Redirect URL',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -90,7 +92,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'app_auth_url',
+        'uid' => 'COGNITO_APP_AUTH_URL',
         'label' => 'Web Authentication Base',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -101,7 +103,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'oath_scopes',
+        'uid' => 'COGNITO_OAUTH_SCOPES',
         'label' => 'OAuth Scopes',
         'section' => 'cognito_auth_settings',
         'type' => 'text',
@@ -114,7 +116,7 @@ class Cognito_Login_Settings {
 
       // Plugin Settings
       array(
-        'uid' => 'homepage',
+        'uid' => 'COGNITO_HOMEPAGE',
         'label' => 'Homepage',
         'section' => 'plugin_settings',
         'type' => 'text',
@@ -125,7 +127,7 @@ class Cognito_Login_Settings {
         'default' => ''
       ),
       array(
-        'uid' => 'login_link_text',
+        'uid' => 'COGNITO_LOGIN_LINK_TEXT',
         'label' => 'Login Link Text',
         'section' => 'plugin_settings',
         'type' => 'text',
@@ -136,7 +138,7 @@ class Cognito_Login_Settings {
         'default' => 'Login'
       ),
       array(
-        'uid' => 'login_link_class',
+        'uid' => 'COGNITO_LOGIN_LINK_CLASS',
         'label' => 'Login Link Class',
         'section' => 'plugin_settings',
         'type' => 'text',
@@ -147,7 +149,7 @@ class Cognito_Login_Settings {
         'default' => 'cognito-login-link'
       ),
       array(
-        'uid' => 'disable_wp_login',
+        'uid' => 'COGNITO_DISABLE_WP_LOGIN',
         'label' => 'Disable WP Login',
         'section' => 'plugin_settings',
         'type' => 'select',
@@ -161,7 +163,7 @@ class Cognito_Login_Settings {
         'default' => 'true'
       ),
       array(
-        'uid' => 'force_auth',
+        'uid' => 'COGNITO_FORCE_AUTH',
         'label' => 'Force User Login',
         'section' => 'plugin_settings',
         'type' => 'select',
@@ -177,7 +179,7 @@ class Cognito_Login_Settings {
 
       // New user settings
       array(
-        'uid' => 'create_new_user',
+        'uid' => 'COGNITO_NEW_USER',
         'label' => 'Create New User',
         'section' => 'new_user_settings',
         'type' => 'select',
@@ -191,7 +193,7 @@ class Cognito_Login_Settings {
         'default' => 'true'
       ),
       array(
-        'uid' => 'add_user_to_new_blog',
+        'uid' => 'COGNITO_ADD_USER_TO_NEW_BLOG',
         'label' => 'Add user to new blog',
         'section' => 'new_user_settings',
         'type' => 'select',
@@ -205,7 +207,7 @@ class Cognito_Login_Settings {
         'default' => 'true'
       ),
       array(
-        'uid' => 'username_attribute',
+        'uid' => 'COGNITO_USERNAME_ATTRIBUTE',
         'label' => 'Username Attribute',
         'section' => 'new_user_settings',
         'type' => 'text',
@@ -216,7 +218,7 @@ class Cognito_Login_Settings {
         'default' => 'email'
       ),
       array(
-        'uid' => 'password_length',
+        'uid' => 'COGNITO_PASSWORD_LENGTH',
         'label' => 'Password Length',
         'section' => 'new_user_settings',
         'type' => 'text',
@@ -227,7 +229,7 @@ class Cognito_Login_Settings {
         'default' => '18'
       ),
       array(
-        'uid' => 'allow_insecure_pass',
+        'uid' => 'COGNITO_ALLOW_INSECURE_PASSWORD',
         'label' => 'Allow Insecure Passwords',
         'section' => 'new_user_settings',
         'type' => 'select',
@@ -241,7 +243,7 @@ class Cognito_Login_Settings {
         'default' => 'false'
       ),
       array(
-        'uid' => 'password_chars',
+        'uid' => 'COGNITO_PASSWORD_CHARS',
         'label' => 'Password Characters',
         'section' => 'new_user_settings',
         'type' => 'text',
@@ -259,7 +261,7 @@ class Cognito_Login_Settings {
   }
 
   public function field_callback( $arguments ) {
-    $value = get_option( $arguments['uid'] ); // Get the current value, if there is one
+    $value = Cognito_Login_Options::get_plugin_option( $arguments['uid'] ); // Get the current value, if there is one
     if( $value === FALSE || $value === '' ) { // If no value exists
       $value = $arguments['default']; // Set to our default
       update_option($arguments['uid'], $value);

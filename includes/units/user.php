@@ -1,6 +1,7 @@
 <?php
 
 include_once( PLUGIN_PATH . 'includes/utils/generate-strings.php' );
+include_once( PLUGIN_PATH . 'includes/utils/options.php' );
 
 class Cognito_Login_User {
   /**
@@ -19,11 +20,11 @@ class Cognito_Login_User {
    * @return object|boolean The newly created WordPress user or FALSE if creation failed
    */
   public static function create_user( $parsed_token ) {
-    $username_attribute = get_option( 'username_attribute' );
+    $username_attribute = Cognito_Login_Options::get_plugin_option( 'COGNITO_USERNAME_ATTRIBUTE' );
     $userdata = array(
       'user_login' => $parsed_token[$username_attribute],
       'user_email' => $parsed_token['email'],
-      'user_pass' => Cognito_Login_Generate_Strings::password( get_option('password_length' ) )
+      'user_pass' => Cognito_Login_Generate_Strings::password( Cognito_Login_Options::get_plugin_option('COGNITO_PASSWORD_LENGTH' ) )
     );
 
     // Check for password generation failure
