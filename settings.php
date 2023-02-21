@@ -55,8 +55,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'us-east-1_yourId',
         'helper' => '',
-        'supplemental' => '',
-        'default' => ''
+        'supplemental' => ''
       ),
       array(
         'uid' => 'COGNITO_APP_CLIENT_ID',
@@ -66,8 +65,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'yourAppClientId',
         'helper' => '',
-        'supplemental' => '',
-        'default' => ''
+        'supplemental' => ''
       ),
       array(
         'uid' => 'COGNITO_APP_CLIENT_SECRET',
@@ -77,8 +75,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'yourAppClientSecret',
         'helper' => '',
-        'supplemental' => '',
-        'default' => ''
+        'supplemental' => ''
       ),
       array(
         'uid' => 'COGNITO_REDIRECT_URL',
@@ -88,8 +85,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'https://yourredirecturl.com',
         'helper' => '',
-        'supplemental' => '',
-        'default' => ''
+        'supplemental' => ''
       ),
       array(
         'uid' => 'COGNITO_APP_AUTH_URL',
@@ -99,8 +95,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'https://auth.yourdomain.com',
         'helper' => '',
-        'supplemental' => 'Base URL of the Cognito authentication endpoint',
-        'default' => ''
+        'supplemental' => 'Base URL of the Cognito authentication endpoint'
       ),
       array(
         'uid' => 'COGNITO_OAUTH_SCOPES',
@@ -110,8 +105,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'openid',
         'helper' => '',
-        'supplemental' => 'List of OAuth Scopes. Separate scopes with "+"',
-        'default' => 'openid'
+        'supplemental' => 'List of OAuth Scopes. Separate scopes with "+"'
       ),
 
       // Plugin Settings
@@ -123,8 +117,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'https://yourdomain.com/welcome',
         'helper' => '',
-        'supplemental' => 'The domain to send a newly logged in user. Leave empty to not redirect',
-        'default' => ''
+        'supplemental' => 'The domain to send a newly logged in user. Leave empty to not redirect'
       ),
       array(
         'uid' => 'COGNITO_LOGIN_LINK_TEXT',
@@ -134,8 +127,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'Login',
         'helper' => '',
-        'supplemental' => 'Text to include in the login link. HTML compatible',
-        'default' => 'Login'
+        'supplemental' => 'Text to include in the login link. HTML compatible'
       ),
       array(
         'uid' => 'COGNITO_LOGIN_LINK_CLASS',
@@ -145,8 +137,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'cognito-login-link',
         'helper' => '',
-        'supplemental' => 'Class to add to the login <a> tag',
-        'default' => 'cognito-login-link'
+        'supplemental' => 'Class to add to the login <a> tag'
       ),
       array(
         'uid' => 'COGNITO_DISABLE_WP_LOGIN',
@@ -159,8 +150,7 @@ class Cognito_Login_Settings {
         ),
         'placeholder' => '',
         'helper' => '',
-        'supplemental' => 'Should the default WP login system be disabled?',
-        'default' => 'true'
+        'supplemental' => 'Should the default WP login system be disabled?'
       ),
       array(
         'uid' => 'COGNITO_FORCE_AUTH',
@@ -173,8 +163,7 @@ class Cognito_Login_Settings {
         ),
         'placeholder' => '',
         'helper' => '',
-        'supplemental' => 'Force user to login',
-        'default' => 'false'
+        'supplemental' => 'Force user to login'
       ),
 
       // New user settings
@@ -189,8 +178,7 @@ class Cognito_Login_Settings {
         ),
         'placeholder' => '',
         'helper' => '',
-        'supplemental' => 'Should a new user be created if they don\'t yet exist?',
-        'default' => 'true'
+        'supplemental' => 'Should a new user be created if they don\'t yet exist?'
       ),
       array(
         'uid' => 'COGNITO_ADD_USER_TO_NEW_BLOG',
@@ -203,8 +191,7 @@ class Cognito_Login_Settings {
         ),
         'placeholder' => '',
         'helper' => '',
-        'supplemental' => 'Should a user be linked to the new blog if it is not there?',
-        'default' => 'true'
+        'supplemental' => 'Should a user be linked to the new blog if it is not there?'
       ),
       array(
         'uid' => 'COGNITO_USERNAME_ATTRIBUTE',
@@ -214,8 +201,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => 'email',
         'helper' => '',
-        'supplemental' => 'The attribute to use as a WordPress "Username"',
-        'default' => 'email'
+        'supplemental' => 'The attribute to use as a WordPress "Username"'
       ),
       array(
         'uid' => 'COGNITO_PASSWORD_LENGTH',
@@ -225,8 +211,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => '18',
         'helper' => '',
-        'supplemental' => 'Length of randomly generated user passwords',
-        'default' => '18'
+        'supplemental' => 'Length of randomly generated user passwords'
       ),
       array(
         'uid' => 'COGNITO_ALLOW_INSECURE_PASSWORD',
@@ -239,8 +224,7 @@ class Cognito_Login_Settings {
         ),
         'placeholder' => '',
         'helper' => '',
-        'supplemental' => 'Use insecure password generation if a cryptographically secure method isn\'t available',
-        'default' => 'false'
+        'supplemental' => 'Use insecure password generation if a cryptographically secure method isn\'t available'
       ),
       array(
         'uid' => 'COGNITO_PASSWORD_CHARS',
@@ -250,8 +234,7 @@ class Cognito_Login_Settings {
         'options' => false,
         'placeholder' => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'helper' => '',
-        'supplemental' => 'The characters that will be used for random password generation',
-        'default' => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'supplemental' => 'The characters that will be used for random password generation'
       )
     );
     foreach( $fields as $field ) {
