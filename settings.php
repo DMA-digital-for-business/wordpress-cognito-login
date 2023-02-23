@@ -32,7 +32,6 @@ class Cognito_Login_Settings {
         <?php
           settings_fields( 'cognito_login_fields' );
           do_settings_sections( 'cognito_login_fields' );
-          submit_button();
         ?>
       </form>
     </div> <?php

@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login for Multisite
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.4.1
+  Version: 1.4.2
   Author: Matteo Collina
   Author URI: https://github.com/matteocollina
 */
