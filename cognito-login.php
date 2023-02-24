@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login for Multisite
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.4.2
+  Version: 1.4.3
   Author: Matteo Collina
   Author URI: https://github.com/matteocollina
 */
@@ -71,6 +71,13 @@ class Cognito_Login{
     $username = $parsed_token[Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE')];
 
     $user = get_user_by( 'login', $username );
+    
+    if ( $user === FALSE ) {
+      // Get user by email
+      $user = get_user_by( 'email', $username );
+
+      if ( $user !== FALSE ) $username = $user->user_login;
+    }
 
     if ( $user === FALSE ) {
       // Also check for a user that only matches the first part of the email
