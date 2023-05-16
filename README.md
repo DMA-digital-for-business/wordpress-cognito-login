@@ -35,10 +35,8 @@ and "www.your-site.com", and a user logs in at your-site.com, if they go to "www
 will no longer be considered "logged in"
 
 ## Username Matching
-For legacy reasons, if a user already exists in WordPress and is not formatted as an email, the
-email attribute can still be used as the username as long as the email username (the part
-before the @ symbol) matches the WordPress username. For example, the user "example-user" will
-be logged in with the email "example-user@email.com"
+To match the user first the email is checked and if it is not there it matches the part before @. 
+For example, the user "example-user" will be logged in with the email "example-user@email.com"
 
 # Settings
 The following configurations can be found in the settings menu
@@ -52,6 +50,8 @@ The following configurations can be found in the settings menu
 - "**Web Authentication Base**" - Base URL for the Cognito authentication endpoint associated with
                               the Learning Pool
 - "**OAuth Scopes**" - OAuth scopes to use. Only 'openid' is required
+
+- "**Force Auth**" - Indicates whether the identity broker requires authentication or, if already logged in, maintains the session.  ("true" | "false")
 
 ## Plugin Settings
 - "**Homepage**" - A URL to redirect users to once they have successfully logged in. Leave empty
