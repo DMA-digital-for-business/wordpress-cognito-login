@@ -1,54 +1,5 @@
 <?php
 
-// this functions allow autologin of SSO-logged users in a website of same netword
-// even if user is never came here
-// Requirement: all websites must save LOGGED_IN_COOKIE with same hash and same
-// domain (on 2nd level)
-//
-// NB: this cannot work on sites on different 2nd level domains
-// 
-// eg:
-// 
-// Cross-domain login for *.wordpress.local
-// define( 'COOKIE_DOMAIN', 	 'wordpress.local');
-// define( 'COOKIEHASH', 		   md5(AUTH_SALT));
-function cognito_set_current_user(){
-  
-  $user = wp_get_current_user();
-  $cookie_elements = explode( '|', $_COOKIE[LOGGED_IN_COOKIE] );
-
-  if ( count( $cookie_elements ) === 4 ) {
-
-    $username = $cookie_elements[0];
-    $user = get_user_by( 'email', $username);
-    
-    if ( is_a( $user, 'WP_User' ) ) {
-
-      wp_set_current_user( $user->ID, $user->user_login );
-      
-      if ( is_user_logged_in() ) {
-        return true;
-      }
-
-    } else {
-
-      // l'utente non esiste in db, lo creo
-      $parsed_token = [
-        'email' => $username,
-      ];  
-      $user = Cognito_Login_User::create_user( $parsed_token );
-      
-      wp_set_current_user( $user->ID, $user->user_login );
-      
-      if ( is_user_logged_in() ) {
-        return true;
-      }
-
-    }
-  }
-}
-
-add_action('set_current_user', 'cognito_set_current_user');
 
 /**
  * Class contains functions for performing automatic logins
