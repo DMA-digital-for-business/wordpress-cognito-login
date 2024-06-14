@@ -13,11 +13,18 @@ class Cognito_Login_Auth{
   }
 
   /**
-   * Gets the "code" query variable, or FALSE if it doesn't exist
+   * Gets the "id token" query variable, or FALSE if it doesn't exist
    */
   public static function get_id_token() {
     if ( isset( $_GET['id_token'] ) ) return $_GET['id_token'];
-    
+    return false;
+  }
+
+  /**
+   * Gets the "refresh token" query variable, or FALSE if it doesn't exist
+   */
+  public static function get_refresh_token() {
+    if ( isset( $_GET['refresh_token'] ) ) return $_GET['refresh_token'];
     return false;
   }
 

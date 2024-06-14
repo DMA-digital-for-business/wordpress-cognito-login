@@ -59,7 +59,7 @@ class Cognito_Login{
 
     // Attempt to exchange the code for a token, abort if we weren't able to
     $token = Cognito_Login_Auth::get_id_token();
-    // $token = Cognito_Login_Auth::get_token( $code );
+    $refresh_token = Cognito_Login_Auth::get_refresh_token();
     if ( $token === FALSE) return;
     if ( is_user_logged_in() ) return;
 
@@ -104,6 +104,10 @@ class Cognito_Login{
     // Log the user in! Exit if the login fails
     if ( Cognito_Login_Programmatic_Login::login( $username ) === FALSE ) return;
 
+    // Login successful
+    $expiration = time() + apply_filters( 'auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user->ID, true );
+    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), false, false);
+
     // Redirect the user to the "homepage", if it is set (this will hide all `print` statements)
     $homepage = Cognito_Login_Options::get_plugin_option('COGNITO_HOMEPAGE');
     if ( !empty( $homepage ) ) {
@@ -146,6 +150,56 @@ class Cognito_Login{
       </script>
     <?php
   }
+
+
+  public static function handleAutoLogin(){
+    // die(print_r($_COOKIE[Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME')],true));
+    if(isset($_COOKIE[Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME')]) && !is_user_logged_in()){
+      wp_redirect(Cognito_Login_Generate_Strings::login_url());
+      return;
+    }else if(!isset($_COOKIE[Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME')]) && is_user_logged_in()){
+      wp_logout();
+      wp_redirect(home_url());
+      exit();
+    }
+  }
+
+  public static function handleLogout($userId){
+    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), "", time() - 100, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), false, false);
+    try {
+      Cognito_Login::revoke_token($_COOKIE[Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME')]);
+    } catch (\Throwable $th) {
+      //throw $th;
+    }
+    wp_redirect( home_url() );
+    exit();
+  }
+
+  private static function revoke_token($token) {
+      // URL dell'endpoint
+      $url = Cognito_Login_Options::get_plugin_option('COGNITO_DOMAIN') . '/oauth2/revoke';
+      $headers = array(
+          'Content-Type' => 'application/x-www-form-urlencoded',
+      );
+
+      $body = array(
+          'token' => $token,
+          'client_id' => Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID'),
+      );
+
+      $options = array(
+          'headers' => $headers,
+          'body' => http_build_query($body),
+      );
+
+      $response = wp_remote_post($url, $options);
+      if (is_wp_error($response)) {
+          return $response->get_error_message();
+      } else {
+          return wp_remote_retrieve_body($response);
+      }
+    }
+
 }
 
 // --- Add Shortcodes ---
@@ -153,4 +207,5 @@ add_shortcode( 'cognito_login', array('Cognito_Login', 'shortcode_default') );
 
 // --- Add Actions ---
 add_action( 'parse_query', array('Cognito_Login', 'parse_query_handler') );
-add_action( 'login_head', array('Cognito_Login', 'COGNITO_DISABLE_WP_LOGIN') );
+add_action('init', array('Cognito_Login', 'handleAutoLogin') );
+add_action('wp_logout', array('Cognito_Login', 'handleLogout') );
