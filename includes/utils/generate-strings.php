@@ -54,7 +54,7 @@ class Cognito_Login_Generate_Strings {
    * String shown to the user instead of a login link when they are already logged in
    */
   public static function already_logged_in( $username ) {
-    return 'You are logged in as ' . $username . ' | <a href="' . wp_logout_url() . '">Log Out</a>';
+    return 'You are logged in as ' . $username . ' | <a href="' . wp_logout_url(home_url()) . '">Log Out</a>';
   }
 
   /**
