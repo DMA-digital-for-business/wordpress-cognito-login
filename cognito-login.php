@@ -118,7 +118,7 @@ class Cognito_Login
 
     // Login successful
     $expiration = time() + apply_filters('auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user->ID, true);
-    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), false, false);
+    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
 
     // Redirect the user to the "homepage", if it is set (this will hide all `print` statements)
     $homepage = Cognito_Login_Options::get_plugin_option('COGNITO_HOMEPAGE');
@@ -176,10 +176,7 @@ class Cognito_Login
     $cognito_cookie_is_set = isset($_COOKIE[$cookie_name]);
     $user_logged_into_wp = is_user_logged_in();
 
-
-
     if ($cognito_cookie_is_set && !$user_logged_into_wp) {
-
 
       if (wp_redirect(Cognito_Login_Generate_Strings::login_url())) {
         exit;
@@ -194,14 +191,14 @@ class Cognito_Login
       if (wp_redirect(home_url())) {
         exit;
       }
-      exit();
+      return;
 
     }
   }
 
   public static function handleLogout($userId)
   {
-    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), "", time() - 100, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), false, false);
+    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), "", time() - 100, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
     try {
       Cognito_Login::revoke_token($_COOKIE[Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME')]);
     } catch (\Throwable $th) {
