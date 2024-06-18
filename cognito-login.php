@@ -3,9 +3,9 @@
   Plugin Name: Cognito Login for Multisite
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.4.3
-  Author: Matteo Collina
-  Author URI: https://github.com/matteocollina
+  Version: 1.5.0
+  Author: DMA
+  Author URI: https://www.dma.it/
 */
 
 define('PLUGIN_PATH', plugin_dir_path(__FILE__));
@@ -149,18 +149,15 @@ class Cognito_Login
     );
     ?>
     <script>
-      window.addEventListener('load', function () {
-        // Get the form
+      window.addEventListener('load', function() {
+        /// Get the form
         var loginForm = document.querySelector('body.login div#login form#loginform');
 
-        // Fully disable the form
-        loginForm.action = '/';
-
-        // Modify the inner HTML, adding the login link and removing everything else
-        loginForm.innerHTML = '<?php echo $loginLink ?>';
+        loginForm.parentNode.removeChild(loginForm);
 
         // Also get rid of the nav, password resets are not handled by WordPress
         var nav = document.querySelector('#nav');
+          
         nav.parentNode.removeChild(nav);
       });
     </script>
@@ -247,3 +244,6 @@ add_action('parse_query', array('Cognito_Login', 'parse_query_handler'), 10);
 add_action('parse_query', array('Cognito_Login', 'handleAutoLogin'), 11);
 
 add_action('wp_logout', array('Cognito_Login', 'handleLogout'));
+
+// Disable login form and reset password link in wp-login.php
+add_action( 'login_head', array('Cognito_Login', 'disable_wp_login') );
