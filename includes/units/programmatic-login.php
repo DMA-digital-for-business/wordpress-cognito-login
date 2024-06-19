@@ -19,7 +19,7 @@ class Cognito_Login_Programmatic_Login {
     
     add_filter( 'authenticate', array( 'Cognito_Login_Programmatic_Login', 'allow_programmatic_login' ), 10, 3 );	// hook in earlier than other callbacks to short-circuit them
     $user = wp_signon( array( 'user_login' => $username, 'remember' => true ) );
-    remove_filter( 'authenticate', array( 'Cognito_Login_Programmatic_Login', 'allow_programmatic_login' ), 10, 3 );
+    remove_filter( 'authenticate', array( 'Cognito_Login_Programmatic_Login', 'allow_programmatic_login' ), 10 );
     
     if ( is_a( $user, 'WP_User' ) ) {
       wp_set_current_user( $user->ID, $user->user_login );
