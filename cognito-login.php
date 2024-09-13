@@ -20,6 +20,8 @@ include_once (PLUGIN_PATH . 'includes/units/auth.php');
 include_once (PLUGIN_PATH . 'includes/units/programmatic-login.php');
 include_once (PLUGIN_PATH . 'includes/units/user.php');
 
+include_once (ABSPATH . 'wp-includes/pluggable.php');
+
 /**
  * General initialization function container
  */
@@ -115,10 +117,11 @@ class Cognito_Login
     // Log the user in! Exit if the login fails
     if (Cognito_Login_Programmatic_Login::login($username) === FALSE)
       return;
-
+    
     // Login successful
     $expiration = time() + apply_filters('auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user->ID, true);
-    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
+
+    setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token != false ? $refresh_token : $token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
 
     // Redirect the user to the "homepage", if it is set (this will hide all `print` statements)
     $homepage = Cognito_Login_Options::get_plugin_option('COGNITO_HOMEPAGE');
