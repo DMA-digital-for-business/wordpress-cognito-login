@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login for Multisite
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.5.0
+  Version: 1.6.0
   Author: DMA
   Author URI: https://www.dma.it/
 */
@@ -123,11 +123,7 @@ class Cognito_Login
 
     setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token != false ? $refresh_token : $token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
 
-    // Redirect the user to the "homepage", if it is set (this will hide all `print` statements)
-    $homepage = Cognito_Login_Options::get_plugin_option('COGNITO_HOMEPAGE');
-    if (!empty($homepage)) {
-      Cognito_Login_Auth::redirect_to($homepage);
-    }
+    Cognito_Login_Auth::redirect_to( Cognito_Login_Generate_Strings::get_current_path_page());    
   }
 
   /**

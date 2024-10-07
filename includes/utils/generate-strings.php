@@ -5,6 +5,14 @@ include_once( PLUGIN_PATH . 'includes/utils/options.php' );
  * Class contains functions used to generate strings
  */
 class Cognito_Login_Generate_Strings {
+
+  public static function get_current_path_page(){
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $domainName = $_SERVER['HTTP_HOST'];
+    $path = $_SERVER['REQUEST_URI'];
+    return $protocol . $domainName . $path;
+  }	
+
   /**
    * URL to use in the login link href
    */
@@ -12,7 +20,10 @@ class Cognito_Login_Generate_Strings {
     $app_auth_url = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
     $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
     $oauth_scopes = Cognito_Login_Options::get_plugin_option('COGNITO_OAUTH_SCOPES');
-    $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
+    // $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
+
+    $redirect_url = Cognito_Login_Generate_Strings::get_current_path_page();
+
     $force_auth = Cognito_Login_Options::get_plugin_option('COGNITO_FORCE_AUTH') === 'true' ? "true" : "false";
 
     return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth;
