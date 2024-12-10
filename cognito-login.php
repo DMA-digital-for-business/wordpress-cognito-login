@@ -1,9 +1,9 @@
 <?php
 /*
-  Plugin Name: Cognito Login for Multisite
+  Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.6.0
+  Version: 1.7.0
   Author: DMA
   Author URI: https://www.dma.it/
 */
