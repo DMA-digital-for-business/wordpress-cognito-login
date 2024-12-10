@@ -120,10 +120,73 @@ class Cognito_Login
     
     // Login successful
     $expiration = time() + apply_filters('auth_cookie_expiration', 14 * DAY_IN_SECONDS, $user->ID, true);
-
     setcookie(Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME'), $refresh_token != false ? $refresh_token : $token, $expiration, "/", Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_DOMAIN'), true, true);
 
     Cognito_Login_Auth::redirect_to( Cognito_Login_Generate_Strings::get_current_path_page());    
+  }
+
+  function check_user_profiling() {
+    if (!current_user_can("administrator") && is_user_logged_in() && Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_ACTIVE') === 'true') {
+        $user_id = get_current_user_id();
+        $profiling_complete = get_user_meta($user_id, 'sso_profiling_complete');
+
+        //Se il profiling non è completo e non siamo già sulla pagina del form
+        if (!$profiling_complete && !is_page(Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH'))) {
+            wp_redirect(home_url('/' . Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH')));
+            exit;
+        }
+    }
+  }
+
+  function is_user_logged_in_and_verify_nonce( $request ) {
+      $nonce = $request->get_header( 'X-WP-Nonce' );
+      if ( !wp_verify_nonce( $nonce, 'wp_rest' ) || !is_user_logged_in() ) {
+          return false;
+      }
+      return true;
+  }
+
+  function register_profile_user_endpoint() {
+    register_rest_route( 'custom/v1', '/profile-user', array(
+        'methods'  => 'POST',
+          'callback' => 'Cognito_Login::handle_profile_user',
+          'permission_callback' => 'Cognito_Login::is_user_logged_in_and_verify_nonce',
+      ) );
+  }
+
+
+  function handle_profile_user( WP_REST_Request $request ) {
+    if ( !is_user_logged_in() ) {
+        return new WP_REST_Response( array(
+            'success' => false,
+            'message' => 'User not logged in'
+        ), 401 );
+    }
+
+    $user_id = get_current_user_id();
+    $updated = update_user_meta( $user_id, 'sso_profiling_complete', true );
+
+    if ( $updated ) {
+        return new WP_REST_Response( array(
+            'success' => true,
+            'message' => 'User meta updated successfully'
+        ), 200 );
+    } else {
+        return new WP_REST_Response( array(
+            'success' => false,
+            'message' => 'Failed to update user meta'
+        ), 500 );
+    }
+  }
+
+  function profiling_enqueue_scripts() {
+    if(is_page(Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH'))) {
+      wp_enqueue_script('sso-cognito-login-js', plugin_dir_url(__FILE__) . 'public/js/cognito-wp.js');
+
+      wp_localize_script( 'sso-cognito-login-js', 'profiling_object', array(
+        'nonce' => wp_create_nonce( 'wp_rest' ),
+    ) );
+    }
   }
 
   /**
@@ -246,3 +309,10 @@ add_action('wp_logout', array('Cognito_Login', 'handleLogout'));
 
 // Disable login form and reset password link in wp-login.php
 add_action( 'login_head', array('Cognito_Login', 'disable_wp_login') );
+
+// Verify if profiling is done
+add_action('template_redirect', array('Cognito_Login', 'check_user_profiling'));
+
+add_action( 'wp_enqueue_scripts', array('Cognito_Login', 'profiling_enqueue_scripts') );
+
+add_action( 'rest_api_init', array('Cognito_Login', 'register_profile_user_endpoint') );
