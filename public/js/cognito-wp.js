@@ -9,7 +9,14 @@ function updateUserMeta() {
         .then((response) => response.json())
         .then((result) => {
             if (result.success) {
-                console.log('User meta updated successfully');
+                console.log('User meta updated successfully ');
+                    const fromUrl = new URLSearchParams(window.location.search).get("from")
+                    if (fromUrl) {
+                        window.location.href = fromUrl;
+                    } else {
+                        console.log("Il parametro 'from' non è presente.");
+                    }
+                
             } else {
                 console.error('Error updating user meta:', result.message);
             }

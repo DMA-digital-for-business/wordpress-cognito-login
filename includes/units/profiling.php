@@ -17,7 +17,7 @@ class Cognito_Login_Profiling {
     
             //Se il profiling non è completo e non siamo già sulla pagina del form
             if (!$profiling_complete && !is_page(Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH'))) {
-                wp_redirect(home_url('/' . Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH')));
+                wp_redirect(home_url('/' . Cognito_Login_Options::get_plugin_option('COGNITO_PROFILING_PATH') . '?from=' . Cognito_Login_Generate_Strings::get_current_path_page() ));
                 exit;
             }
         }
