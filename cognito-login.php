@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.7.0
+  Version: 1.7.1
   Author: DMA
   Author URI: https://www.dma.it/
 */

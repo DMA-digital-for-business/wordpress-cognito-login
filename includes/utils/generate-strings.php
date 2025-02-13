@@ -20,13 +20,14 @@ class Cognito_Login_Generate_Strings {
     $app_auth_url = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
     $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
     $oauth_scopes = Cognito_Login_Options::get_plugin_option('COGNITO_OAUTH_SCOPES');
+    $migration_uri = Cognito_Login_Options::get_plugin_option('COGNITO_MIGRATION_URI');
     // $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
 
     $redirect_url = Cognito_Login_Generate_Strings::get_current_path_page();
 
     $force_auth = Cognito_Login_Options::get_plugin_option('COGNITO_FORCE_AUTH') === 'true' ? "true" : "false";
 
-    return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth;
+    return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth . (!empty($migration_uri) ? '&migration_uri=' . $migration_uri : '');
   }
 
   /**
