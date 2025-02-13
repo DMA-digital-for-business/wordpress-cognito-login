@@ -59,10 +59,9 @@ class Cognito_Login
     // Remove this function from the action queue - it should only run once
     remove_action('parse_query', array('Cognito_Login', 'parse_query_handler'));
 
-    // Try to get a code from the url query and abort if we don't find one, or the user is already logged in
-    // $code = Cognito_Login_Auth::get_code();
-    // if ( $code === FALSE ) return;
-    // if ( is_user_logged_in() ) return;
+    if (stripos($_SERVER['REQUEST_URI'], '/wp-json/') !== false) {
+      return;
+    }
 
     // Attempt to exchange the code for a token, abort if we weren't able to
     $token = Cognito_Login_Auth::get_id_token();
@@ -167,6 +166,10 @@ class Cognito_Login
   public static function handleAutoLogin()
   {
     global $current_user;
+
+    if (stripos($_SERVER['REQUEST_URI'], '/wp-json/') !== false) {
+      return;
+    }
 
     $cookie_name = Cognito_Login_Options::get_plugin_option('COGNITO_COOKIE_NAME');
     $cognito_cookie_is_set = isset($_COOKIE[$cookie_name]);
