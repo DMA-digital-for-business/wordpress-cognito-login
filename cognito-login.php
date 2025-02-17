@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.9
+  Version: 1.10
   Author: DMA
   Author URI: https://www.dma.it/
 */
@@ -14,6 +14,7 @@ include_once (PLUGIN_PATH . 'settings.php');
 // --- Include Utilities ---
 include_once (PLUGIN_PATH . 'includes/utils/generate-strings.php');
 include_once (PLUGIN_PATH . 'includes/utils/options.php');
+include_once (PLUGIN_PATH . 'includes/utils/jwt-utils.php');
 
 // --- Include Units ---
 include_once (PLUGIN_PATH . 'includes/units/auth.php');
@@ -76,17 +77,30 @@ class Cognito_Login
     // Attempt to exchange the code for a token, abort if we weren't able to
     $token = Cognito_Login_Auth::get_id_token();
     $refresh_token = Cognito_Login_Auth::get_refresh_token();
-    if ($token === FALSE)
+    if ($token === FALSE) {
       return;
-    if (is_user_logged_in())
+    }
+    // Se l'utente ha rifatto il login, cmq valido il token anche se era già loggato
+    if (is_user_logged_in()) {
       return;
+    }
+    
+    // Rilevamento manomissione del token
+    $tokenIsValidResult = JwtUtils::jwtTokenIsValid($token, $cognito_jwt_keys);
+
+    if ($tokenIsValidResult !== 'OK') {
+      die("Login failed, tampered token '$token' - Error code: $tokenIsValidResult");
+      return;
+    } 
 
     // Parse the token
     $parsed_token = Cognito_Login_Auth::parse_jwt($token);
 
     // Determine user existence
-    if (!in_array(Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE'), $parsed_token))
+    if (!in_array(Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE'), $parsed_token)) {
+      error_log("The token doesn't contains field for COGNITO_USERNAME_ATTRIBUTE: '". Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE') . "' - Parsed token " . print_r($parsed_token, true));
       return;
+    }
     $username = $parsed_token[Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE')];
 
     $user = get_user_by('login', $username);
