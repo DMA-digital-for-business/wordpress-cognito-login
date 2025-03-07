@@ -12,7 +12,7 @@
 - Rimosso il JS per nascondere il form di login, a favore del css con `display: none;`
 
 - Ora il form di login viene manipolat via PHP + css, quindi NON serve più modificare il wp-login.php
-  Anzi: l'eventuale echo dello shortcode nel file `wp-login.php` `[cognito_login]` va proprio rimosso
+  Anzi: l'eventuale echo dello shortcode `[cognito_login]` nel file `wp-login.php` va proprio rimosso durante l'upgrade alla v1.11
 
 - E' stata fatta pulizia nel codice raggruppando alcuni metodi in nuove classi
 
