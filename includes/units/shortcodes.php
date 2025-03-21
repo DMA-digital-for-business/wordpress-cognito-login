@@ -7,7 +7,7 @@ class Cognito_Shortcodes
      */
     public static function cognito_login($atts)
     {
-        wp_enqueue_style('cognito-login-wp-login', plugin_dir_url(__FILE__) . '../public/css/cognito-login-wp-login.css');
+        wp_enqueue_style('cognito-login-wp-login', plugin_dir_url(__FILE__) . '../../public/css/cognito-login-wp-login.css');
 
         $atts = shortcode_atts(
             [

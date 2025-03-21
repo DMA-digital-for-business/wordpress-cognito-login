@@ -1,3 +1,7 @@
+# Versione 1.12
+
+- Corretto path relativo a `cognito-login-wp-login.css` per lo shortcode `[cognito_login]`
+
 # Versione 1.11
 
 - Aggiunto lo shortcode `[cognito_login_url]` e la function statica `Cognito_Shortcodes::cognito_login_url()`
