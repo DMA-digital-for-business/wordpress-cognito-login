@@ -1,3 +1,7 @@
+# Versione 1.13
+
+- Correzioni relativi alla compatibilità con php 8
+
 # Versione 1.12
 
 - Corretto path relativo a `cognito-login-wp-login.css` per lo shortcode `[cognito_login]`
