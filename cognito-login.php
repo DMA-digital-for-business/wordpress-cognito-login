@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.13
+  Version: 1.14
   Author: DMA
   Author URI: https://www.dma.it/
 */
@@ -83,27 +83,11 @@ class Cognito_Login
         }
         $username = $parsed_token[Cognito_Login_Options::get_plugin_option('COGNITO_USERNAME_ATTRIBUTE')];
 
-        $user = get_user_by('login', $username);
+        // Get user by email
+        $user = get_user_by('email', $username);
 
-        if ($user === false) {
-            // Get user by email
-            $user = get_user_by('email', $username);
-
-            if ($user !== false) {
-                $username = $user->user_login;
-            }
-
-        }
-
-        if ($user === false) {
-            // Also check for a user that only matches the first part of the email
-            $non_email_username = substr($username, 0, strpos($username, '@'));
-            $user               = get_user_by('login', $non_email_username);
-
-            if ($user !== false) {
-                $username = $non_email_username;
-            }
-
+        if ($user !== false) {
+            $username = $user->user_login;
         }
 
         if ($user === false) {

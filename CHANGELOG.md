@@ -1,3 +1,7 @@
+# Versione 1.14
+
+- Hofix per matchare sempre e solo l'indirizzo email, campo `user_email`, invece di tentare col nickname e/o usando la prima parte dell'indirizzo email.
+
 # Versione 1.13
 
 - Correzioni relativi alla compatibilità con php 8
