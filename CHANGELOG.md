@@ -1,3 +1,9 @@
+# Versione 1.15
+
+- Lato JS sono ora disponibili `loginInfoObject.loginUrl`, `loginInfoObject.signupUrl` e `loginInfoObject.isLoggedIn`
+- Lato PHP ora la function `login_url` accetta un boolean, di default `false`, che permette, se `true`, di ottenere il link
+  alla pagina di signup invece che a quella di login
+
 # Versione 1.14
 
 - Hofix per matchare sempre e solo l'indirizzo email, campo `user_email`, invece di tentare col nickname e/o usando la prima parte dell'indirizzo email.

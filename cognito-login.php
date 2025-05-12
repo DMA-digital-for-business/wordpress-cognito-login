@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.14
+  Version: 1.15
   Author: DMA
   Author URI: https://www.dma.it/
 */
@@ -11,19 +11,20 @@
 define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 // --- Include Utilities ---
-include_once PLUGIN_PATH . 'includes/utils/generate-strings.php';
-include_once PLUGIN_PATH . 'includes/utils/options.php';
-include_once PLUGIN_PATH . 'includes/utils/jwt-utils.php';
+require_once PLUGIN_PATH . 'includes/utils/generate-strings.php';
+require_once PLUGIN_PATH . 'includes/utils/options.php';
+require_once PLUGIN_PATH . 'includes/utils/jwt-utils.php';
 
 // --- Include Units ---
-include_once PLUGIN_PATH . 'includes/units/auth.php';
-include_once PLUGIN_PATH . 'includes/units/programmatic-login.php';
-include_once PLUGIN_PATH . 'includes/units/user.php';
-include_once PLUGIN_PATH . 'includes/units/profiling.php';
-include_once PLUGIN_PATH . 'includes/units/shortcodes.php';
-include_once PLUGIN_PATH . 'includes/units/login-form.php';
+require_once PLUGIN_PATH . 'includes/units/auth.php';
+require_once PLUGIN_PATH . 'includes/units/programmatic-login.php';
+require_once PLUGIN_PATH . 'includes/units/user.php';
+require_once PLUGIN_PATH . 'includes/units/profiling.php';
+require_once PLUGIN_PATH . 'includes/units/shortcodes.php';
+require_once PLUGIN_PATH . 'includes/units/login-form.php';
+require_once PLUGIN_PATH . 'includes/units/js-helpers.php';
 
-include_once ABSPATH . 'wp-includes/pluggable.php';
+require_once ABSPATH . 'wp-includes/pluggable.php';
 
 /**
  * General initialization function container
@@ -284,3 +285,7 @@ add_action('template_redirect', ['Cognito_Login_Profiling', 'check_user_profilin
 add_action('wp_enqueue_scripts', ['Cognito_Login_Profiling', 'profiling_enqueue_scripts']);
 
 add_action('rest_api_init', ['Cognito_Login_Profiling', 'register_profile_user_endpoint']);
+
+// Inject variables into js 
+
+add_action('wp_enqueue_scripts', ['Cognito_Login_Js_Helpers', 'inject_login_url']);

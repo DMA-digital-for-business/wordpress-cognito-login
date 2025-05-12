@@ -18,7 +18,7 @@ class Cognito_Login_Generate_Strings
     /**
      * URL to use in the login link href
      */
-    public static function login_url()
+    public static function login_url($signup = false)
     {
         $app_auth_url  = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
         $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
@@ -33,7 +33,7 @@ class Cognito_Login_Generate_Strings
 
         $force_auth = Cognito_Login_Options::get_plugin_option('COGNITO_FORCE_AUTH') === 'true' ? "true" : "false";
 
-        return $app_auth_url . '/?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth . (! empty($migration_uri) ? '&migration_uri=' . $migration_uri : '');
+        return $app_auth_url . '/' .  ($signup ? 'signup' : '') .'?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth . (! empty($migration_uri) ? '&migration_uri=' . $migration_uri : '');
     }
 
     /**
