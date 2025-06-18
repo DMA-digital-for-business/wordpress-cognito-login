@@ -68,3 +68,46 @@ The following configurations can be found in the settings menu
                                when a cryptographically secure one is not available. Should
                                be left on the default (No) unless absolutely necessary
 - "**Password Characters**" - Possible characters that can be used in the generated password
+
+# User Profiling
+
+The plugin supports user profiling functionality that redirects new users to a profiling page after their first login. This feature allows you to collect additional user information through a HubSpot form.
+
+## Profiling Configuration
+
+To enable user profiling, you need to configure the following settings:
+
+### Environment Variables
+- **COGNITO_PROFILING_ACTIVE** - Set to `true` to enable the profiling functionality
+- **COGNITO_PROFILING_PATH** - Set the path where the profiling page will be located
+
+**Note**: These environment variables must be defined in your `wp-config.php` file.
+
+### Setup Steps
+
+1. **Enable Profiling**: Set `COGNITO_PROFILING_ACTIVE` to `true` in your environment configuration
+
+2. **Configure Path**: Set the desired path in `COGNITO_PROFILING_PATH` where the profiling page will be accessible
+
+3. **Create HubSpot Form**: Create a HubSpot form that will collect the user profiling information
+
+4. **Create WordPress Profiling Page**: Create a new page in WordPress and add the HubSpot form with the following JavaScript configuration:
+
+```javascript
+onFormSubmit: function() {
+    console.log("Hubspot onFormSubmit");
+    updateUserMeta();
+}
+```
+
+## How It Works
+
+1. When a user logs in for the first time through Cognito, they will be automatically redirected to the profiling page
+2. The profiling page displays the HubSpot form for collecting additional user information
+3. When the user submits the form, the `updateUserMeta()` function is called
+4. The plugin's `profiling.php` module handles saving the profiling data to the database
+5. Once profiling is completed, the user can proceed to the main application
+
+## Profiling Data Storage
+
+The profiling information collected through the HubSpot form is stored in the WordPress database using the plugin's profiling functionality. This data can be used for user segmentation, personalization, and other user experience enhancements.
