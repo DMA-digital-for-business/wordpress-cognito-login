@@ -54,7 +54,7 @@ Sostituire
 
   Per esempio: `https://www.transizioneenergeticanews.it`
 
-- `[[ dominio ]]` (1 occorrenza) con il solo dominio del sito, senza `www`. Compare in `COGNITO_COOKIE_DOMAIN`.
+- `[[ dominio ]]` con il solo dominio del sito, senza `www`. Compare in `COGNITO_COOKIE_DOMAIN`.
 
   Per esempio: `transizioneenergeticanews.it`
 
