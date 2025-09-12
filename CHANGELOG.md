@@ -1,3 +1,7 @@
+# Versione 1.16
+
+- In abbinamento a `Cognito_Shortcodes::cognito_login_url()` è ora disponibile anche `Cognito_Shortcodes::cognito_signup_url()`
+
 # Versione 1.15
 
 - Lato JS sono ora disponibili `loginInfoObject.loginUrl`, `loginInfoObject.signupUrl` e `loginInfoObject.isLoggedIn`

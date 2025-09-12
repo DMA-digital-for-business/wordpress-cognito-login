@@ -28,4 +28,9 @@ class Cognito_Shortcodes
         return Cognito_Login_Generate_Strings::login_url();
     }
 
+    public static function cognito_signup_url() 
+    {
+        return Cognito_Login_Generate_Strings::login_url(true);
+    }
+
 }

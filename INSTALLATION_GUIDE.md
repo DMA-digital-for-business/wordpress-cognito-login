@@ -77,6 +77,34 @@ Attivare il plugin `Cognito Login`
 
 Questo fa si che nella pagina `/wp-login.php` scompaia il form di login a favore del link verso l'accesso in SSO, già stilizzato.
 
+### Strumenti messi a disposizione dal plugin
+
+**Shortcode**
+
+- `[cognito_login]` => pulsante di redirect verso il login (mostra il logout se già loggati); è già pre-stilizzato e non personalizzabile
+- `[cognito_login_url]` => solo link, da usare negli href
+
+> Lato SSO, la pagina di login ha comunque un link alla registrazione e viceversa
+
+**Function PHP**
+
+- `Cognito_Shortcodes::cognito_login_url()` => restituisce solo il link alla pagina di **login**; restituisce una stringa
+- `Cognito_Shortcodes::cognito_login_url(true)` => restituisce il link alla pagina di **registrazione**  
+
+**Logout**
+
+Il normale form di logout di Wordpress continuerà a funzionare. 
+
+> In tecnichese: Per intenderci, il link `Esci` di Wordpress, nella barra di 
+navigazione, è in realtà
+un `FORM` HTML con una `action` e metodo `POST` per utilizzare un `wpnonce` per
+motivi di sicurezza. 
+> Se si utilizza il link alla `wp-login.php?action=logout` in GET e senza `wpnonce`, 
+Wordpress chiede conferma all'utente se vuole davvero uscire; comunque sia
+il presente plugin non altera questo funzionamento
+
+## Dopo l'installazione, customizzare l'aspetto del sito Wordpress
+
 ### Shortcode di `join-my-multisite`
 
 > Questa sostituzione va eseguita nei _contenuti_ delle pagine e degli articoli,
@@ -89,11 +117,11 @@ In alternativa, per avere maggiore controllo, inserire html e css a piacere ed u
 lo shortcode `[cognito_login_url]` per renderizzare solo l'indirizzo della pagina di
 login tramite SSO; per esempio inserendolo nell'attributo `href` di un tag HTML `A`
 
-### Elementor 
+### Elementor
 
-Se si usa questo plugin per personalizzare il tema, accedere a `Template -> Theme builder` e cercare, per esempio negli `Header` i punti dov'è presente il link a `login` / `registrati` o al `logout`.  
+Se si usa questo plugin per personalizzare il tema, accedere a `Template -> Theme builder` e cercare, per esempio negli `Header` i punti dov'è presente il link a `login` / `registrati` o al `logout`.
 
-Si consiglia di sostituire gli short code con un link html usando come `href` lo shortcode `[cognito_login_url]`. 
+Si consiglia di sostituire gli short code con un link html usando come `href` lo shortcode `[cognito_login_url]`.
 
 Ladove serve usare del codice PHP, utilizzare `Cognito_Shortcodes::cognito_login_url()`; questa chiamata restituisce una stringa, che quindi può essere accodata ad altre stringhe o mandata in echo al bisogno
 
