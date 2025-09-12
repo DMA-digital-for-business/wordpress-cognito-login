@@ -11,7 +11,7 @@ Creare dentro alla cartella `plugins` di Wordpress una sottocartella `cognito-lo
 
 Copiare l'intero _contenuto_ di questo progetto all'interno della cartella `cognito-login`
 
-> NB: Assicurarsi di \_non copiare la cartella `.git` (su alcuni sistemi è nascosta)
+> NB: Assicurarsi di _non copiare la cartella `.git`_ (su alcuni sistemi è nascosta)
 
 Copiare nel file `wp-config.production.php` il seguente snippet
 
