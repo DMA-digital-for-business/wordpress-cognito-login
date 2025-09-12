@@ -25,7 +25,7 @@
 
           (is_plugin_active( 'cognito-login/cognito-login.php' ) ? Cognito_Shortcodes::cognito_login_url() : wp_login_url())
 
-      > NB: in ogni sito il nome della cartella è diverso. Agire di consguenza !!!!
+      > NB: in ogni sito il nome della cartella è diverso. Agire di conseguenza !!!!
 
 - Rimosso il JS per nascondere il form di login, a favore del css con `display: none;`
 
