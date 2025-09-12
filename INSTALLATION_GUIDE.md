@@ -77,7 +77,7 @@ Attivare il plugin `Cognito Login`
 
 Questo fa si che nella pagina `/wp-login.php` scompaia il form di login a favore del link verso l'accesso in SSO, già stilizzato.
 
-### Strumenti messi a disposizione dal plugin
+## Strumenti messi a disposizione dal plugin
 
 **Shortcode**
 
