@@ -48,15 +48,15 @@ Questo va copiato prima delle ultime righe, cioè deve essere copiato prima di q
 require_once ABSPATH . 'wp-settings.php';
 ```
 
-Sostitutire
+Sostituire
 
-- `[[ indirizzo home page ]]` con l'indirizzo completo della homepage, senza slash (`/`) finale.
+- `[[ indirizzo home page ]]` con l'indirizzo completo della homepage, senza slash (`/`) finale. Compare in `COGNITO_REDIRECT_URL` e in `COGNITO_HOMEPAGE`.
 
   Per esempio: `https://www.transizioneenergeticanews.it`
 
-- `[[ dominio ]]` con il solo dominio del sito, senza `www`.
+- `[[ dominio ]]` (1 occorrenza) con il solo dominio del sito, senza `www`. Compare in `COGNITO_COOKIE_DOMAIN`.
 
-  Per esempio: `transizioneenergeticanews`
+  Per esempio: `transizioneenergeticanews.it`
 
 Rilasciare
 
