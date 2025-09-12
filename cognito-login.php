@@ -267,6 +267,8 @@ add_shortcode('cognito_login', ['Cognito_Shortcodes', 'cognito_login']);
 
 add_shortcode('cognito_login_url', ['Cognito_Shortcodes', 'cognito_login_url']);
 
+add_shortcode('cognito_signup_url', ['Cognito_Shortcodes', 'cognito_signup_url']);
+
 // --- Add Actions ---
 add_action('parse_query', ['Cognito_Login', 'parse_query_handler'], 10);
 

@@ -1,6 +1,7 @@
 # Versione 1.16
 
 - In abbinamento a `Cognito_Shortcodes::cognito_login_url()` è ora disponibile anche `Cognito_Shortcodes::cognito_signup_url()`
+- Similmente, oltre a `[cognito_login_url]` è ora disponibile anche `[cognito_signup_url]`
 
 # Versione 1.15
 

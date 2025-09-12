@@ -82,7 +82,8 @@ Questo fa si che nella pagina `/wp-login.php` scompaia il form di login a favore
 **Shortcode**
 
 - `[cognito_login]` => pulsante di redirect verso il login (mostra il logout se già loggati); è già pre-stilizzato e non personalizzabile
-- `[cognito_login_url]` => solo link, da usare negli href
+- `[cognito_login_url]` => solo link alla pagina di login
+- `[cognito_signup_url]` => solo link alla pagina di registrazione 
 
 > Lato SSO, la pagina di login ha comunque un link alla registrazione e viceversa
 
