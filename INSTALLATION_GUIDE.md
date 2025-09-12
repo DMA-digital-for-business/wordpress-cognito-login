@@ -64,7 +64,7 @@ Rilasciare
 
 Attendere il completamento del deploy automatico di Github
 
-## Sostituzione dei lnk di login per sfruttare l'SSO
+## Sostituzione dei plugin che toccano il login a favore dell'SSO
 
 Accedere a Wordpress
 
