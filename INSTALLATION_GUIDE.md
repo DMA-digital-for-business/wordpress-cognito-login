@@ -123,7 +123,7 @@ In alternativa, per avere maggiore controllo, inserire html e css a piacere ed u
 lo shortcode `[cognito_login_url]` per renderizzare solo l'indirizzo della pagina di
 login tramite SSO; per esempio inserendolo nell'attributo `href` di un tag HTML `A`
 
-### Elementor
+### `Elementor`
 
 Se si usa questo plugin per personalizzare il tema, accedere a `Template -> Theme builder` e cercare, per esempio negli `Header` i punti dov'è presente il link a `login` / `registrati` o al `logout`.
 
@@ -136,8 +136,12 @@ Ladove serve usare del codice PHP, utilizzare `Cognito_Shortcodes::cognito_login
 > Queste modifiche vanno eseguite nel _sorgente_ del sito
 
 In tutti i punti del tema (sia mobile che desktop), cercare dove sono presenti i link alla
-pagina di login
+pagina di login, logout e registrazione
+
+---
 
 ### Ricordarsi del tema mobile
 
 Spesso i link al login sono presenti in più file e/o in più widget del tema, per coprire anche le varianti mobile dei menù. Ricordarsi di sostituire anche lì i link.
+
+---
