@@ -50,7 +50,7 @@ require_once ABSPATH . 'wp-settings.php';
 
 Sostitutire
 
-- `[[ indirizzo home page ]]` con l'indirizzo, completo della homepage, senza slash (`/`) finale.
+- `[[ indirizzo home page ]]` con l'indirizzo completo della homepage, senza slash (`/`) finale.
 
   Per esempio: `https://www.transizioneenergeticanews.it`
 
