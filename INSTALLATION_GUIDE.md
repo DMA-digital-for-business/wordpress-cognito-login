@@ -86,22 +86,28 @@ Questo fa si che nella pagina `/wp-login.php` scompaia il form di login a favore
 
 > Lato SSO, la pagina di login ha comunque un link alla registrazione e viceversa
 
+**Variabili Js**
+
+- `loginInfoObject.loginUrl`: string
+- `loginInfoObject.signupUrl`: string
+- `loginInfoObject.isLoggedIn`: boolean
+
 **Function PHP**
 
 - `Cognito_Shortcodes::cognito_login_url()` => restituisce solo il link alla pagina di **login**; restituisce una stringa
-- `Cognito_Shortcodes::cognito_login_url(true)` => restituisce il link alla pagina di **registrazione**  
+- `Cognito_Shortcodes::cognito_login_url(true)` => restituisce il link alla pagina di **registrazione**
 
 **Logout**
 
-Il normale form di logout di Wordpress continuerà a funzionare. 
+Il normale form di logout di Wordpress continuerà a funzionare.
 
-> In tecnichese: Per intenderci, il link `Esci` di Wordpress, nella barra di 
-navigazione, è in realtà
-un `FORM` HTML con una `action` e metodo `POST` per utilizzare un `wpnonce` per
-motivi di sicurezza. 
-> Se si utilizza il link alla `wp-login.php?action=logout` in GET e senza `wpnonce`, 
-Wordpress chiede conferma all'utente se vuole davvero uscire; comunque sia
-il presente plugin non altera questo funzionamento
+> In tecnichese: Per intenderci, il link `Esci` di Wordpress, nella barra di
+> navigazione, è in realtà
+> un `FORM` HTML con una `action` e metodo `POST` per utilizzare un `wpnonce` per
+> motivi di sicurezza.
+> Se si utilizza il link alla `wp-login.php?action=logout` in GET e senza `wpnonce`,
+> Wordpress chiede conferma all'utente se vuole davvero uscire; comunque sia
+> il presente plugin non altera questo funzionamento
 
 ## Dopo l'installazione, customizzare l'aspetto del sito Wordpress
 
