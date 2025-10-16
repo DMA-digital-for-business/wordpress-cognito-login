@@ -33,4 +33,10 @@ class Cognito_Shortcodes
         return Cognito_Login_Generate_Strings::login_url(true);
     }
 
+    // In attesa dell'implementazione lato frontend
+    // public static function cognito_reset_password_url() 
+    // {
+    //     return Cognito_Login_Generate_Strings::login_url(false, true);
+    // }
+
 }

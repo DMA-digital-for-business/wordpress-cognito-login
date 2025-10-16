@@ -1,3 +1,8 @@
+# Versione 1.17
+
+- Ora se un utente accede malevolmente, e a mano, a `/wp-login.php?action=lostpassword`, non ved più il form
+  del recupero password, ma solo il link verso l'SSO
+
 # Versione 1.16
 
 - In abbinamento a `Cognito_Shortcodes::cognito_login_url()` è ora disponibile anche `Cognito_Shortcodes::cognito_signup_url()`

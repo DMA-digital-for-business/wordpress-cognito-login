@@ -3,7 +3,7 @@
   Plugin Name: Cognito Login
   Plugin URI: https://github.com/DMA-digital-for-business/wordpress-cognito-login
   description: WordPress plugin for integrating with Cognito for User Pools
-  Version: 1.16
+  Version: 1.17
   Author: DMA
   Author URI: https://www.dma.it/
 */
@@ -268,6 +268,9 @@ add_shortcode('cognito_login', ['Cognito_Shortcodes', 'cognito_login']);
 add_shortcode('cognito_login_url', ['Cognito_Shortcodes', 'cognito_login_url']);
 
 add_shortcode('cognito_signup_url', ['Cognito_Shortcodes', 'cognito_signup_url']);
+
+// In attesa dell'implementazione lato FE
+// add_shortcode('cognito_lostpassword_url', ['Cognito_Shortcodes', 'cognito_signup_url']);
 
 // --- Add Actions ---
 add_action('parse_query', ['Cognito_Login', 'parse_query_handler'], 10);

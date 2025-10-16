@@ -18,13 +18,12 @@ class Cognito_Login_Generate_Strings
     /**
      * URL to use in the login link href
      */
-    public static function login_url($signup = false)
+    public static function login_url($signup = false, $lost_password = false)
     {
         $app_auth_url  = Cognito_Login_Options::get_plugin_option('COGNITO_APP_AUTH_URL');
         $app_client_id = Cognito_Login_Options::get_plugin_option('COGNITO_APP_CLIENT_ID');
         $oauth_scopes  = Cognito_Login_Options::get_plugin_option('COGNITO_OAUTH_SCOPES');
         $migration_uri = Cognito_Login_Options::get_plugin_option('COGNITO_MIGRATION_URI');
-        // $redirect_url = Cognito_Login_Options::get_plugin_option('COGNITO_REDIRECT_URL');
 
         $redirect_url = Cognito_Login_Generate_Strings::get_current_path_page();
         if (mb_stripos($redirect_url, "wp-login.php") !== false) {
@@ -33,7 +32,23 @@ class Cognito_Login_Generate_Strings
 
         $force_auth = Cognito_Login_Options::get_plugin_option('COGNITO_FORCE_AUTH') === 'true' ? "true" : "false";
 
-        return $app_auth_url . '/' .  ($signup ? 'signup' : '') .'?client_id=' . $app_client_id . '&response_type=code&scope=' . $oauth_scopes . '&redirect_uri=' . $redirect_url . '&forceAuth=' . $force_auth . (! empty($migration_uri) ? '&migration_uri=' . $migration_uri : '');
+        $app_auth_url = $app_auth_url . '/' ;
+        if ($signup) {
+            $app_auth_url .= 'signup';
+        } 
+        // In attesa dell'implementazione lato frontend
+        // elseif ($lost_password) {
+        //     $app_auth_url .= 'lost-password';
+        // }
+        
+
+        $query_parameters = '?client_id=' . $app_client_id 
+            . '&response_type=code&scope=' . $oauth_scopes 
+            . '&redirect_uri=' . $redirect_url 
+            . '&forceAuth=' . $force_auth 
+            . (! empty($migration_uri) ? '&migration_uri=' . $migration_uri : '');
+
+        return $app_auth_url . $query_parameters;
     }
 
     /**

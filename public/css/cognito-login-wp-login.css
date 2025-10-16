@@ -32,3 +32,13 @@ body.login div#login form#loginform {
 body.login P#nav {
   display: none;
 }
+
+/* Nascondiamo il form di reset password  */
+body.login.login-action-lostpassword DIV#login FORM#lostpasswordform {
+  display: none;
+}
+
+/* Nascondiamo anche il paragrafo di istruzioni */
+body.login.login-action-lostpassword DIV#login P.message {
+  display: none;
+}
