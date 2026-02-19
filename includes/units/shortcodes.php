@@ -33,6 +33,11 @@ class Cognito_Shortcodes
         return Cognito_Login_Generate_Strings::login_url(true);
     }
 
+    public static function cognito_logout_url()
+    {
+        return wp_logout_url(home_url());
+    }
+
     // In attesa dell'implementazione lato frontend
     // public static function cognito_reset_password_url() 
     // {

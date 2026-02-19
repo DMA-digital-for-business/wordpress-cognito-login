@@ -1,3 +1,9 @@
+# Versione 1.18
+
+- Aggiunto lo shortcode `[cognito_logout_url]` che utilizza il link di logout di wordpress
+  Il logout su cognito sarà conseguenza del logout di Worpress (c'è una action che 
+  fa l'handle del logout)
+
 # Versione 1.17
 
 - Ora se un utente accede malevolmente, e a mano, a `/wp-login.php?action=lostpassword`, non ved più il form
